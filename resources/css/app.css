@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #94c4c6;
+    border-radius: 10px;
+    border: 3px solid #f0f0f0;
+}
+
+input:focus {
+    outline: none !important;
+    border-color: none !important;
+}
+
+:focus {
+    outline: none !important; /* Removes the outline */
+}
+
+* {
+    outline: none; /* Removes the outline */
+}

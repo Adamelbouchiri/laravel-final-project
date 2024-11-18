@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/users/all', [AdminController::class, 'allUsers'])->name('admin.allUsers');
     Route::post('/user/approve/{user}', [AdminController::class, 'approveUser'])->name('admin.approveUser');
     Route::post('/user/coach/{user}', [AdminController::class, 'coachUser'])->name('admin.coachUser');
+});
+
+Route::middleware(['auth', 'coach'])->group(function () {
+    Route::get('/create-class', [ClasseController::class, 'index'])->name('coach.show');
+    Route::post('/class/store', [ClasseController::class, 'store'])->name('class.store');
 });
 
 

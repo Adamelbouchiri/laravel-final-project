@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ApprovedMiddleware;
+use App\Http\Middleware\CoachMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,8 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            "admin"=>AdminMiddleware::class,
-            "approved"=>ApprovedMiddleware::class,
+            "admin"=> AdminMiddleware::class,
+            "coach"=> CoachMiddleware::class,
+            "approved"=> ApprovedMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

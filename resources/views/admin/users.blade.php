@@ -7,12 +7,11 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-[#94c4c6] min-h-screen">
+<body class="min-h-screen">
   @include('layouts.navigation')
-  <h1 class="text-2xl font-bold text-zinc-100 mb-6 text-center pt-8">Users to approve</h1>
-  <div class="container mx-auto p-8 bg-white shadow-lg mt-8">
+  <h1 class="text-2xl font-bold text-[#94c4c6] mb-6 text-center pt-8">Users to approve</h1>
+  <div class="container mx-auto p-8 bg-white mt-8">
     
-
     @if (session('success'))
     <div class="mb-8 w-full bg-green-100 text-green-800 p-4 rounded-lg shadow-md border-l-4 border-green-500">
       <div class="flex items-center">
