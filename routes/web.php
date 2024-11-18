@@ -30,7 +30,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::middleware(['auth', 'coach'])->group(function () {
     Route::get('/create-class', [ClasseController::class, 'index'])->name('coach.show');
+    Route::get('/classes', [ClasseController::class, 'showClasses'])->name('classes.show');
+    Route::get('/classe/{class}', [ClasseController::class, 'show'])->name('classe.show');
     Route::post('/class/store', [ClasseController::class, 'store'])->name('class.store');
+    Route::post('/class/assign', [ClasseController::class, 'assignUsers'])->name('class.assign');
 });
 
 

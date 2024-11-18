@@ -35,6 +35,11 @@
                         {{ __('Create Class') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('classes.show')" :active="request()->routeIs('classes.show')">
+                        {{ __('Show Classes') }}
+                    </x-nav-link>
+                </div>
                 @endCheckRole
                 {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="#our-target">

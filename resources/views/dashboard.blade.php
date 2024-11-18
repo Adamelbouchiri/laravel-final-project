@@ -1,27 +1,5 @@
 <x-app-layout>
     <style>
-        .scroll-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: -50px;
-            background-color: #31c9ce;
-            color: white;
-            border-radius: 15px;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .scroll-to-top:hover {
-            background-color: #24a4a9;
-        }
-
 
         .up-down {
             background-color: #94c4c6;
@@ -150,29 +128,5 @@
 
     @include("layouts.footer")
 
-    <button id="scrollToTopBtn" class="transition duration-300 scroll-to-top flex items-center justify-center">
-        ↑
-    </button>
-
-    <script>
-        // Get the button element
-        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-
-        // Show the button when the user scrolls down
-        window.onscroll = function () {
-            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                scrollToTopBtn.style.right = "20px";
-            } else {
-                scrollToTopBtn.style.right = "-50px";
-            }
-        };
-
-        // Scroll to the top when the button is clicked
-        scrollToTopBtn.onclick = function () {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        };
-    </script>
+    @include("layouts.scrollToTop")
 </x-app-layout>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classe;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ClasseController extends Controller
@@ -14,6 +15,14 @@ class ClasseController extends Controller
     {
         return view('coach.createClass');
     }
+
+    public function showClasses()
+    {
+        $classes = Classe::all();
+
+        return view('coach.showClasses', compact('classes'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +37,7 @@ class ClasseController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         request()->validate([
             'name' => 'required',
             'seats' => 'required|integer|max:10',
@@ -37,26 +46,25 @@ class ClasseController extends Controller
             'startTime' => 'required|date|before:endTime',
             'endTime' => 'required|date|after:startTime',
         ]);
-        
+
         $startTime = $request->startTime;
         $endTime = $request->endTime;
 
         $currentDate = date('Y-m-d');
-        
+
         $position1 = strpos($startTime, "T");
         $startDate = substr($startTime, 0, $position1);
 
         $position2 = strpos($endTime, "T");
         $endDate = substr($endTime, 0, $position2);
 
-        if($startDate < $currentDate || $endDate < $currentDate ) {
+        if ($startDate < $currentDate || $endDate < $currentDate) {
             return back()->with('error', 'Choose a date starting from today');
-        
         } else {
             Classe::create([
                 'name' => $request->name,
                 'seats' => $request->seats,
-                'premium' => $request->premium,
+                'isPremium' => $request->premium,
                 'coach_id' => $request->coach_id,
                 'start' => $startDate,
                 'end' => $endDate,
@@ -65,12 +73,39 @@ class ClasseController extends Controller
         return back()->with('success', 'Classe created successfully');
     }
 
+    public function assignUsers(Request $request)
+    {
+        request()->validate([
+            'user_id' => 'required',
+            'class_id' => 'required',
+        ]);
+
+        $class = Classe::where('id', $request->class_id)->first();
+        $user = User::where('id', $request->user_id)->first();
+
+
+        if ($class->seats === 0) {
+            return back()->with('error', 'No seats available for this class');
+        }
+
+        if ($class->users()->where('user_id', $user->id)->exists()) {
+            return back()->with('error', 'User already assigned to this class');
+        } 
+        
+        $class->seats -= 1;
+        $class->save();
+        $class->users()->attach($user->id);
+
+        return back()->with('success', 'User assigned successfully');
+    }
+
     /**
      * Display the specified resource.
      */
-    public function show(Classe $classe)
+    public function show(Classe $class)
     {
-        //
+        $users = User::where('role', 'user')->get();
+        return view('coach.showSingleClass', compact('class', "users"));
     }
 
     /**

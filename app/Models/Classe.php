@@ -14,4 +14,12 @@ class Classe extends Model
         'start',
         'end',
     ];
+
+    public function coach() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'user_classes');
+    }
 }

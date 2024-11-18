@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Classe;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::directive('endCheckRole', function () {
             return "<?php endif ; ?>";
+        });
+
+        Gate::define("coach-class", function (User $user , Classe $class) {
+            return Auth::user()->id === $class->coach_id ;
         });
     }
 }

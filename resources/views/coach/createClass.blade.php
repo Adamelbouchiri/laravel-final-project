@@ -11,7 +11,7 @@
 @include('layouts.navigation')
 
 <body class="">
-
+    
     <div class="flex items-center justify-center min-h-screen py-[50px]">
         <div class="bg-white p-6 rounded-lg shadow-lg w-[900px] ">
             @include('layouts.flash')
