@@ -41,11 +41,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
         ]);
 
-        
-        
         event(new Registered($user));
-
-        // Auth::login($user);
 
         return redirect(route('waiting'));
     }

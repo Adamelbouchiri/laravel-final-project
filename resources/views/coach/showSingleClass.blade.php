@@ -15,15 +15,16 @@
 
 <body class="bg-gray-100">
     @include('layouts.navigation')
-    <div class="">
-        <div class="max-w-4xl mx-auto p-6">
+    <div class="flex justify-center">
+        <div class="w-[800px] mx-10 p-6">
             <!-- Back Button -->
             <div class="flex justify-between items-center">
                 <a href="{{ route('classes.show') }}"
                     class="text-[#59c5c9] transition duration-200 px-4 py-2 rounded-lg hover:bg-[#59c5c9] hover:text-white text-md mb-4 inline-block"><i
                         class="fa-solid fa-arrow-left"></i> Back to Classes
                 </a>
-                <button class="bg-[#59c5c9] text-white rounded-md px-4 py-2 duration-200 mb-4 hover:bg-[#30989c] transition"
+                <button
+                    class="bg-[#59c5c9] text-white rounded-md px-4 py-2 duration-200 mb-4 hover:bg-[#30989c] transition"
                     onclick="openModal('modelConfirm')">
                     Add Course For This Class
                 </button>
@@ -50,12 +51,12 @@
                     <p class="text-gray-600 text-lg pb-4 font-bold">Coach: <span
                             class="font-medium text-md text-gray-400"> {{ $class->coach->name }}</span>
                     </p>
-                    <div class="flex justify-between pt-4 border-t-2 border-[#59c5c9] mt-2">
+                    <div class="flex justify-between pt-4 border-t-2 border-zinc-700 mt-2">
                         <p class="text-gray-600 font-bold">Start: <span
-                                class="font-medium text-[#94c4c6]">{{ $class->start }}</span>
+                                class="font-medium text-[#4ed8dc]">{{ $class->start }}</span>
                         </p>
                         <p class="text-gray-600 font-bold">End: <span
-                                class="font-medium text-[#94c4c6]">{{ $class->end }}</span>
+                                class="font-medium text-[#4ed8dc]">{{ $class->end }}</span>
                         </p>
                     </div>
                 </div>
@@ -83,9 +84,22 @@
                 </div>
             @endcan
         </div>
+        <div class="w-[400px]">
+            <div class="pt-10">
+                <h1 class="text-3xl font-bold mb-4">Courses</h1>
+                @if ($class->courses->isEmpty())
+                    <h1 class="text-sm mt-4 ms-4">No Available Courses Yet <span><i class="fa-solid fa-heart-crack"></i></span></h1>
+                @endif
+                @foreach ($class->courses as $course)
+                    <div class="bg-white shadow-md p-6 rounded-lg transition duration-300 hover:shadow-lg hover:translate-y-[-5px] mb-4">
+                        <h1 class="font-semibold mb-2 text-md">Course Name :</h1>
+                        <h1 class="tracking-wider font-bold mb-7 text-zinc-900 text-2xl">{{ $course->id }}. {{ $course->name }}</h1>
+                        <a href="{{ route('course.show',$course->id) }}" class="py-2 px-6 bg-blue-500 transition duration-200 hover:bg-blue-600 rounded-md text-white">Show Lessons</a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
     </div>
-
-
 
     <div id="modelConfirm"
         class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 ">
@@ -103,7 +117,17 @@
             </div>
 
             <div class="p-6 pt-0 text-center">
-                
+                <form action="{{ route('course.store') }}" method="POST" class="text-start">
+                    @csrf
+                    <label class="text-zinc-600 font-bold text-lg tracking-wider mb-2 block" for="name">Course
+                        Name:</label>
+                    <input id="name" type="text" name="name" placeholder="Enter Course Name"
+                        class="w-full rounded">
+                    <input type="hidden" name="classe_id" value="{{ $class->id }}">
+                    <button
+                        class="mt-4 block px-6 py-2 text-white bg-[#94c4c6] rounded-md shadow transition duration-200 hover:bg-[#51a9ac]"
+                        onclick="closeModal('modelConfirm')">Add</button>
+                </form>
             </div>
 
         </div>

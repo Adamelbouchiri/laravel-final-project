@@ -22,4 +22,8 @@ class Classe extends Model
     public function users() {
         return $this->belongsToMany(User::class, 'user_classes');
     }
+
+    public function courses() {
+        return $this->hasMany(Course::class);
+    }
 }

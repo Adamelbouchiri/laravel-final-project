@@ -1,5 +1,5 @@
 @if (session('success'))
-    <div class="mb-8 w-full bg-green-100 text-green-800 p-4 rounded-lg shadow-md border-l-4 border-green-500">
+    <div class="z-10 mb-8 w-full bg-green-100 text-green-800 p-4 rounded-lg shadow-md border-l-4 border-green-500">
         <div class="flex items-center">
         <!-- Success Icon -->
         <svg class="w-6 h-6 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="none">
@@ -13,7 +13,7 @@
     @endif
 
     @if (session('error'))
-    <div class="mb-8 w-full bg-red-100 text-red-800 p-4 rounded-lg shadow-md border-l-4 border-red-500">
+    <div class="z-10 mb-8 w-full bg-red-100 text-red-800 p-4 rounded-lg shadow-md border-l-4 border-red-500">
         <div class="flex items-center">
         <!-- Success Icon -->
         <svg class="w-6 h-6 text-red-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="none">
