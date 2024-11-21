@@ -21,15 +21,8 @@ html {
     border: 3px solid #f0f0f0;
 }
 
-input:focus {
-    outline: none !important;
-    border-color: none !important;
-}
-
-:focus {
-    outline: none !important; /* Removes the outline */
-}
-
-* {
-    outline: none; /* Removes the outline */
+.cl-button {
+    background-color: #91e1cb; /* Green background for all buttons */
+    color: white;             /* White text */
+    border: none;
 }

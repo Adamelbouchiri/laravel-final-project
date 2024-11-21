@@ -5,6 +5,7 @@ use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,8 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/classe/{class}', [ClasseController::class, 'show'])->name('classe.show');
     Route::get('/classe/course/{course}', [CourseController::class, 'show'])->name('course.show');
     Route::get('/classe/course/Lesson/{lesson}', [LessonController::class, 'show'])->name('lesson.show');
-    Route::post('/lesson/complete', [LessonController::class, 'nextLesson'])->name('lesson.complete');
-    Route::post('/course/project', [CourseController::class, 'checkAnswers'])->name('course.checkProject');
+    
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -43,6 +43,15 @@ Route::middleware(['auth', 'coach'])->group(function () {
     Route::post('/course/store', [CourseController::class, 'store'])->name('course.store');
     Route::post('/Lesson/store', [LessonController::class, 'store'])->name('lesson.store');
     Route::post('/course/projectStore', [CourseController::class, 'projectStore'])->name('course.projectStore');
+});
+
+Route::middleware(['auth', 'user'])->group(function () {
+    Route::post('/lesson/complete', [LessonController::class, 'nextLesson'])->name('lesson.complete');
+    Route::post('/course/project', [CourseController::class, 'checkAnswers'])->name('course.checkProject');
+    Route::get('/classes/calendar', [userController::class, 'index'])->name('classesCalendar.show');
+    Route::get('/calendar/create', [userController::class, 'create'])->name('calendar.create');
+    Route::post('/classe/join', [userController::class, 'joinClass'])->name('classe.join');
+    Route::get('/My-classes', [userController::class, 'showClasses'])->name('userClasses.show');
 });
 
 

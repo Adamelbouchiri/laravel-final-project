@@ -17,8 +17,8 @@ return new class extends Migration
             $table->integer('seats');
             $table->foreignId('coach_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->boolean('isPremium')->default(false);
-            $table->string('start');
-            $table->string('end');
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->timestamps();
         });
     }

@@ -62,55 +62,51 @@
                         </div>
                     @endforeach
                     @checkRole('coach')
-                        <div class="bg-[#59c5c9] rounded-md p-4">
-                            <h1 class="text-white text-2xl tracking-wider font-bold text-center ">Final Project</h1>
-                            @if (!$course->project->exists())
-                                <h1 class="text-sm mt-4 ms-4 text-white">No Available Lessons Yet <span><i
-                                            class="fa-solid fa-heart-crack"></i></span>
-                                </h1>
-                            @endif
-                            <form action="{{ route('course.checkProject') }}" method="POST" class="w-full">
-                                @csrf
+                        @if ($course->project == true)
+                            <div class="bg-[#59c5c9] rounded-md p-4">
+                                <h1 class="text-white text-2xl tracking-wider font-bold text-center ">Final Project</h1>
+                                <form action="{{ route('course.checkProject') }}" method="POST" class="w-full">
+                                    @csrf
 
-                                <div class="p-2 text-white">
-                                    <h1 class="text-xl mb-2">- Question Number : {{ $course->project->id }}</h1>
-                                    <h1 class="text-2xl mb-4 font-semibold">{{ $course->project->question }}?</h1>
-                                    <input type="hidden" name="project_id" value="{{ $course->project->id }}">
-                                    <input type="text" name="answer"
-                                        class="w-full px-4 py-2 text-zinc-700 font-semibold rounded"
-                                        placeholder="Enter an answer">
-                                </div>
+                                    <div class="p-2 text-white">
+                                        <h1 class="text-xl mb-2">- Question Number : {{ $course->project->id }}</h1>
+                                        <h1 class="text-2xl mb-4 font-semibold">{{ $course->project->question }}?</h1>
+                                        <input type="hidden" name="project_id" value="{{ $course->project->id }}">
+                                        <input type="text" name="answer"
+                                            class="w-full px-4 py-2 text-zinc-700 font-semibold rounded"
+                                            placeholder="Enter an answer">
+                                    </div>
 
-                                <button class="bg-zinc-700 text-white rounded-md px-4 py-2 mt-4 w-fit mx-auto block">Check
-                                    Answers</button>
-                            </form>
-                        </div>
+                                    <button
+                                        class="bg-zinc-700 text-white rounded-md px-4 py-2 mt-4 w-fit mx-auto block">Check
+                                        Answers</button>
+                                </form>
+                            </div>
+                        @endif
                     @endCheckRole
 
                     @checkRole('user')
-                        <div class="bg-[#59c5c9] rounded-md p-4 {{ $isTrue ? '' : 'hidden' }}">
-                            <h1 class="text-white text-2xl tracking-wider font-bold text-center ">Final Project</h1>
-                            @if (!$course->project->exists())
-                                <h1 class="text-sm mt-4 ms-4 text-white">No Available Lessons Yet <span><i
-                                            class="fa-solid fa-heart-crack"></i></span>
-                                </h1>
-                            @endif
-                            <form action="{{ route('course.checkProject') }}" method="POST" class="w-full">
-                                @csrf
+                        @if ($course->project == true || $isTrue == true)
+                            <div class="bg-[#59c5c9] rounded-md p-4 {{ $isTrue ? '' : 'hidden' }}">
+                                <h1 class="text-white text-2xl tracking-wider font-bold text-center ">Final Project</h1>
+                                <form action="{{ route('course.checkProject') }}" method="POST" class="w-full">
+                                    @csrf
 
-                                <div class="p-2 text-white">
-                                    <h1 class="text-xl mb-2">- Question Number : {{ $course->project->id }}</h1>
-                                    <h1 class="text-2xl mb-4 font-semibold">{{ $course->project->question }}?</h1>
-                                    <input type="hidden" name="project_id" value="{{ $course->project->id }}">
-                                    <input type="text" name="answer"
-                                        class="w-full px-4 py-2 text-zinc-700 font-semibold rounded"
-                                        placeholder="Enter an answer">
-                                </div>
+                                    <div class="p-2 text-white">
+                                        <h1 class="text-xl mb-2">- Question Number : {{ $course->project->id }}</h1>
+                                        <h1 class="text-2xl mb-4 font-semibold">{{ $course->project->question }}?</h1>
+                                        <input type="hidden" name="project_id" value="{{ $course->project->id }}">
+                                        <input type="text" name="answer"
+                                            class="w-full px-4 py-2 text-zinc-700 font-semibold rounded"
+                                            placeholder="Enter an answer">
+                                    </div>
 
-                                <button class="bg-zinc-700 text-white rounded-md px-4 py-2 mt-4 w-fit mx-auto block">Check
-                                    Answers</button>
-                            </form>
-                        </div>
+                                    <button
+                                        class="bg-zinc-700 text-white rounded-md px-4 py-2 mt-4 w-fit mx-auto block">Check
+                                        Answers</button>
+                                </form>
+                            </div>
+                        @endif
                     @endCheckRole
                 </div>
             </div>
@@ -147,8 +143,8 @@
                     <div class="mb-4">
                         <label class="text-zinc-600 font-bold text-lg tracking-wider mb-2 block"
                             for="name">Description:</label>
-                        <input id="name" type="text" name="description"
-                            placeholder="Enter lesson description" class="w-full rounded">
+                        <input id="name" type="text" name="description" placeholder="Enter lesson description"
+                            class="w-full rounded">
                     </div>
                     <input type="hidden" name="course_id" value="{{ $course->id }}">
                     <div class="mb-4">

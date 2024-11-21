@@ -43,6 +43,9 @@ class LessonController extends Controller
             }
         }
 
+        $lesson->isDone = true;
+        $lesson->save();
+
         return back()->with('success', 'Lesson Completed Successfully');
     }
 

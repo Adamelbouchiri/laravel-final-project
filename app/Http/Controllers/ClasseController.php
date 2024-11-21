@@ -70,6 +70,7 @@ class ClasseController extends Controller
                 'end' => $endDate,
             ]);
         }
+        
         return back()->with('success', 'Classe created successfully');
     }
 

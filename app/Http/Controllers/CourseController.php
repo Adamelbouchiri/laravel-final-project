@@ -43,7 +43,8 @@ class CourseController extends Controller
         return back()->with('success', 'Course added to this class successfully');
     }
 
-    public function projectStore(Request $request) {
+    public function projectStore(Request $request)
+    {
 
         request()->validate([
             'question' => 'required',
@@ -60,7 +61,8 @@ class CourseController extends Controller
         return back()->with('success', 'Project added to this course successfully');
     }
 
-    public function checkAnswers(Request $request) {
+    public function checkAnswers(Request $request)
+    {
         request()->validate([
             'answer' => 'required',
             'project_id' => 'required',
@@ -68,7 +70,7 @@ class CourseController extends Controller
 
         $project = FinalProject::where('id', $request->project_id)->first();
 
-        if($project->answer === $request->answer) {
+        if ($project->answer === $request->answer) {
             return back()->with('success', 'Correct answer, You Completed The Course');
         } else {
             return back()->with('error', 'Incorrect answer, Try again');
@@ -81,14 +83,15 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         $isTrue = false;
+
+        // dd($course->lessons);
+
         $lastIndex = count($course->lessons) - 1;
         $lastLesson = $course->lessons[$lastIndex];
 
-        // dd(count($course->lessons));
-        if($lastLesson->isDone == true) {
+        if ($lastLesson->isDone == true) {
             $isTrue = true;
         }
-
 
         return view('coach.course', compact('course', 'isTrue'));
     }

@@ -37,10 +37,15 @@
                             class="font-medium text-md text-gray-400"> {{ $class->coach->name }}</span>
                     </p>
                     <div class="flex items-center justify-between pt-4 border-t-2 border-[#59c5c9] mt-2">
-                        <p class="text-gray-600 font-bold">Start: <span class="font-medium text-[#94c4c6]">{{ $class->start }}</span>
+                        <p class="text-gray-600 font-bold">Start: <span
+                                class="font-medium text-[#94c4c6]">{{ $class->start }}</span>
                         </p>
-                        <a class="text-white transition duration-300 bg-zinc-600 px-4 py-2 hover:bg-zinc-700 rounded-lg" href="{{ route('classe.show',$class->id) }}">Show More Info</a>
-                        <p class="text-gray-600 font-bold">End: <span class="font-medium text-[#94c4c6]">{{ $class->end }}</span>
+                        @can('coach-class', $class)
+                            <a class="text-white transition duration-300 bg-zinc-600 px-4 py-2 hover:bg-zinc-700 rounded-lg"
+                                href="{{ route('classe.show', $class->id) }}">Go to this Class</a>
+                        @endcan
+                        <p class="text-gray-600 font-bold">End: <span
+                                class="font-medium text-[#94c4c6]">{{ $class->end }}</span>
                         </p>
                     </div>
                 </div>
