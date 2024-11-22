@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'role',
         'isApproved',
+        'course_completed',
     ];
 
     /**
@@ -58,6 +59,10 @@ class User extends Authenticatable
     }
 
     public function courses() {
-        
+        return $this->belongsToMany(Course::class, 'user_courses');
+    }
+
+    public function lessons() {
+        return $this->belongsToMany(Lesson::class, 'user_lessons')->withPivot('isDone')->withPivot('current');
     }
 }

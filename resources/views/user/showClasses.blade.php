@@ -40,10 +40,9 @@
                         <p class="text-gray-600 font-bold">Start: <span
                                 class="font-medium text-[#94c4c6]">{{ $class->start }}</span>
                         </p>
-                        @checkRole('user')
-                            <a class="text-white transition duration-300 bg-zinc-600 px-4 py-2 hover:bg-zinc-700 rounded-lg"
-                                href="{{ route('classe.show', $class->id) }}">Start Your Class</a>
-                        @endCheckRole
+
+                        <a class="text-white transition duration-300 bg-zinc-600 px-4 py-2 hover:bg-zinc-700 rounded-lg"
+                            href="{{ route('myClass.show', $class->id) }}">Start Your Class</a>
                         <p class="text-gray-600 font-bold">End: <span
                                 class="font-medium text-[#94c4c6]">{{ $class->end }}</span>
                         </p>

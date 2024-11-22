@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('role')->default('user');
             $table->boolean('isApproved')->default(false);
+            $table->integer('course_completed')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -11,11 +11,13 @@ class Lesson extends Model
         'description',
         'course_id',
         'content',
-        'isDone',
-        'current',
     ];
 
     public function course() {
         return $this->belongsTo(Course::class);
+    }
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'user_lessons');
     }
 }

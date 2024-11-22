@@ -23,13 +23,11 @@
                     class="text-[#59c5c9] transition duration-200 px-4 py-2 rounded-lg hover:bg-[#59c5c9] hover:text-white text-md mb-4 inline-block"><i
                         class="fa-solid fa-arrow-left"></i> Back to Classes
                 </a>
-                @checkRole('coach')
                     <button
                         class="bg-[#59c5c9] text-white rounded-md px-4 py-2 duration-200 mb-4 hover:bg-[#30989c] transition"
                         onclick="openModal('modelConfirm')">
                         Add Course For This Class
                     </button>
-                @endCheckRole
             </div>
 
             <!-- Class Details Card -->
@@ -97,7 +95,7 @@
                     <div
                         class="bg-white shadow-md p-6 rounded-lg transition duration-300 hover:shadow-lg hover:translate-y-[-5px] mb-4">
                         <h1 class="font-semibold mb-2 text-md">Course Name :</h1>
-                        <h1 class="tracking-wider font-bold mb-7 text-zinc-900 text-2xl">{{ $course->id }}.
+                        <h1 class="tracking-wider font-bold mb-7 text-zinc-900 text-2xl">
                             {{ $course->name }}</h1>
                         <a href="{{ route('course.show', $course->id) }}"
                             class="py-2 px-6 bg-blue-500 transition duration-200 hover:bg-blue-600 rounded-md text-white">Show

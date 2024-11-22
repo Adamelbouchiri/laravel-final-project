@@ -18,6 +18,7 @@
         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
         <button id="submitEvent" type="submit">submit</button>
     </form>
+    <h1 class="text-4xl font-semibold text-center text-[#94c4c6] py-4 tracking-wider">Available Classes</h1>
     <div class="flex justify-center items-center">
         <div id="calendar"
             class="my-8 bg-white p-4 text-zinc-800 w-3/4 text-center h-[90vh] border-2 border-zinc-600 rounded">

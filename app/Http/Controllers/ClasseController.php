@@ -84,11 +84,13 @@ class ClasseController extends Controller
         $class = Classe::where('id', $request->class_id)->first();
         $user = User::where('id', $request->user_id)->first();
 
+        // dd($class->courses);
 
+        
         if ($class->seats === 0) {
             return back()->with('error', 'No seats available for this class');
         }
-
+        
         if ($class->users()->where('user_id', $user->id)->exists()) {
             return back()->with('error', 'User already assigned to this class');
         } 
@@ -96,6 +98,14 @@ class ClasseController extends Controller
         $class->seats -= 1;
         $class->save();
         $class->users()->attach($user->id);
+
+        $coursesIds = $class->courses()->pluck('id')->toArray();
+        $user->courses()->attach($coursesIds);
+        
+        foreach($class->courses as $course) {
+            $lessonIds = $course->lessons->pluck('id')->toArray();
+            $user->lessons()->attach($lessonIds);
+        }
 
         return back()->with('success', 'User assigned successfully');
     }

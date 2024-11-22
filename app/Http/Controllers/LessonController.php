@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\userLessons;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LessonController extends Controller
 {
@@ -27,24 +29,22 @@ class LessonController extends Controller
 
     public function nextLesson(Request $request)
     {
-        
         request()->validate([
             'lesson_id' => 'required|integer',
         ]);
 
-        $lesson = Lesson::where('id', $request->lesson_id)->first();
+        $lesson = userLessons::where('user_id', Auth::user()->id)->where('lesson_id', $request->lesson_id)->first();
+        $lessonTwo = userLessons::where('user_id', Auth::user()->id)->where('lesson_id', $request->lesson_id + 1)->first();
 
-        $course = Course::where('id', $lesson->course->id)->first();
-
-        foreach ($course->lessons as $lessonItm) {
-            if($lesson->id + 1 == $lessonItm->id){
-                $lessonItm->current = true;
-                $lessonItm->save();
+        if ($lesson == true) {
+            $lesson->isDone = true;
+            $lesson->save();
+            if ($lessonTwo == true) {
+                $lessonTwo->current = true;
+                $lessonTwo->save();
             }
         }
 
-        $lesson->isDone = true;
-        $lesson->save();
 
         return back()->with('success', 'Lesson Completed Successfully');
     }
@@ -62,11 +62,11 @@ class LessonController extends Controller
             'content' => 'required|file|mimes:pdf,jpg,jpeg,png,mp4,avi,mov',
         ]);
 
-        
+
         $file = file_get_contents($request->content);
-        
+
         $fileName = hash("sha256", $file . Carbon::now()) . "." . $request->content->getClientOriginalExtension();
-        
+
 
         $request->content->move(public_path("lessons-files"), $fileName);
 

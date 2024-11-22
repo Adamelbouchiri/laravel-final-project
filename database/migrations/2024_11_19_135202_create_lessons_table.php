@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('description');
             $table->foreignId('course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('content');
-            $table->boolean('isDone')->default(false);
-            $table->boolean('current')->default(false);
             $table->timestamps();
         });
     }

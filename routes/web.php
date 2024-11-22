@@ -22,11 +22,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/classes', [ClasseController::class, 'showClasses'])->name('classes.show');
-    Route::get('/classe/{class}', [ClasseController::class, 'show'])->name('classe.show');
-    Route::get('/classe/course/{course}', [CourseController::class, 'show'])->name('course.show');
-    Route::get('/classe/course/Lesson/{lesson}', [LessonController::class, 'show'])->name('lesson.show');
-    
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -43,6 +38,10 @@ Route::middleware(['auth', 'coach'])->group(function () {
     Route::post('/course/store', [CourseController::class, 'store'])->name('course.store');
     Route::post('/Lesson/store', [LessonController::class, 'store'])->name('lesson.store');
     Route::post('/course/projectStore', [CourseController::class, 'projectStore'])->name('course.projectStore');
+    Route::get('/classes', [ClasseController::class, 'showClasses'])->name('classes.show');
+    Route::get('/classe/{class}', [ClasseController::class, 'show'])->name('classe.show');
+    Route::get('/classe/course/{course}', [CourseController::class, 'show'])->name('course.show');
+    Route::get('/classe/course/Lesson/{lesson}', [LessonController::class, 'show'])->name('lesson.show');
 });
 
 Route::middleware(['auth', 'user'])->group(function () {
@@ -52,6 +51,9 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/calendar/create', [userController::class, 'create'])->name('calendar.create');
     Route::post('/classe/join', [userController::class, 'joinClass'])->name('classe.join');
     Route::get('/My-classes', [userController::class, 'showClasses'])->name('userClasses.show');
+    Route::get('/My-classes/{class}', [userController::class, 'show'])->name('myClass.show');
+    Route::get('/My-classes/class/course{course}', [userController::class, 'courseShow'])->name('myCourse.show');
+    Route::get('/My-classes/class/course/lesson/{lesson}', [userController::class, 'lessonShow'])->name('myLesson.show');
 });
 
 

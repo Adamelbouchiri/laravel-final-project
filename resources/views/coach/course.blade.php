@@ -17,21 +17,19 @@
     <div class="flex justify-end p-4 relative">
         <div class="bg-[#59c5c9] rounded-md py-10 px-6 h-[260px] w-[450px] flex flex-col fixed left-[80px] top-[80px]">
             <div class=" text-white  me-10">
-                <h1 class="text-3xl font-bold">{{ $course->name }}</h1>
-                <p class="text-lg mt-2 font-bold">Course ID: {{ $course->id }}</p>
+                <p class="text-lg mt-2 font-bold">Course name :</p>
+                <h1 class="text-3xl ps-4 font-bold">{{ $course->name }}</h1>
             </div>
             {{-- Modal Button  --}}
-            @checkRole('coach')
-                <button
-                    class="mt-8 bg-zinc-700 text-white rounded-md px-4 py-2 duration-200 mb-4 hover:bg-zinc-800 transition"
-                    onclick="openModal('modelConfirm')">
-                    Add Lessons For This Course
-                </button>
-                <button class=" bg-zinc-700 text-white rounded-md px-4 py-2 duration-200 mb-4 hover:bg-zinc-800 transition"
-                    onclick="openModal('modelConfirm2')">
-                    Add Final Project For This Course
-                </button>
-            @endCheckRole
+            <button
+                class="mt-8 bg-zinc-700 text-white rounded-md px-4 py-2 duration-200 mb-4 hover:bg-zinc-800 transition"
+                onclick="openModal('modelConfirm')">
+                Add Lessons For This Course
+            </button>
+            <button class=" bg-zinc-700 text-white rounded-md px-4 py-2 duration-200 mb-4 hover:bg-zinc-800 transition"
+                onclick="openModal('modelConfirm2')">
+                Add Final Project For This Course
+            </button>
         </div>
         <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-3xl w-full me-[150px]">
             <div class="p-6">
@@ -43,71 +41,33 @@
                 @endif
                 <div id="lessons" class="space-y-4">
                     @foreach ($course->lessons as $lesson)
-                        <div
-                            class="bg-gray-100 p-4 rounded-md shadow {{ $lesson->id == 1 || $lesson->current ? '' : 'opacity-50' }}">
-                            <h3 class="text-lg font-medium">{{ $lesson->id }}. {{ $lesson->name }}</h3>
+                        <div class="bg-gray-100 p-4 rounded-md shadow">
+                            <h3 class="text-lg font-medium">{{ $lesson->name }}</h3>
                             <p class="text-gray-600 mt-1">{{ $lesson->description }}.</p>
 
-                            @checkRole('user')
-                                @if ($lesson->id == 1 || $lesson->current)
-                                    <a href="{{ route('lesson.show', $lesson->id) }}"
-                                        class="transition duration-200 bg-[#94c4c6] mt-4 block w-fit hover:bg-[#59b4b7] text-white font-bold py-2 px-4 rounded">Show</a>
-                                @endif
-                            @endCheckRole
-                            @checkRole('coach')
-                                <a href="{{ route('lesson.show', $lesson->id) }}"
-                                    class="transition duration-200 bg-[#94c4c6] mt-4 block w-fit hover:bg-[#59b4b7] text-white font-bold py-2 px-4 rounded">Check
-                                    Your Lessons</a>
-                            @endCheckRole
+
+                            <a href="{{ route('lesson.show', $lesson->id) }}"
+                                class="transition duration-200 bg-[#94c4c6] mt-4 block w-fit hover:bg-[#59b4b7] text-white font-bold py-2 px-4 rounded">Check
+                                Your Lessons</a>
                         </div>
                     @endforeach
-                    @checkRole('coach')
-                        @if ($course->project == true)
-                            <div class="bg-[#59c5c9] rounded-md p-4">
-                                <h1 class="text-white text-2xl tracking-wider font-bold text-center ">Final Project</h1>
-                                <form action="{{ route('course.checkProject') }}" method="POST" class="w-full">
-                                    @csrf
 
-                                    <div class="p-2 text-white">
-                                        <h1 class="text-xl mb-2">- Question Number : {{ $course->project->id }}</h1>
-                                        <h1 class="text-2xl mb-4 font-semibold">{{ $course->project->question }}?</h1>
-                                        <input type="hidden" name="project_id" value="{{ $course->project->id }}">
-                                        <input type="text" name="answer"
-                                            class="w-full px-4 py-2 text-zinc-700 font-semibold rounded"
-                                            placeholder="Enter an answer">
-                                    </div>
+                    @if ($course->project == true)
+                        <div class="bg-[#59c5c9] rounded-md p-4">
+                            <h1 class="text-white text-2xl tracking-wider font-bold text-center ">Final Project</h1>
 
-                                    <button
-                                        class="bg-zinc-700 text-white rounded-md px-4 py-2 mt-4 w-fit mx-auto block">Check
-                                        Answers</button>
-                                </form>
+                            <div class="p-2 text-white">
+                                <h1 class="text-xl mb-2">- Question </h1>
+                                <h1 class="text-2xl mb-4 font-semibold">{{ $course->project->question }}?</h1>
+                                <input type="hidden" name="project_id" value="{{ $course->project->id }}">
+                                <input type="text" name="answer"
+                                    class="w-full px-4 py-2 text-zinc-700 font-semibold rounded"
+                                    placeholder="Enter an answer">
                             </div>
-                        @endif
-                    @endCheckRole
 
-                    @checkRole('user')
-                        @if ($course->project == true || $isTrue == true)
-                            <div class="bg-[#59c5c9] rounded-md p-4 {{ $isTrue ? '' : 'hidden' }}">
-                                <h1 class="text-white text-2xl tracking-wider font-bold text-center ">Final Project</h1>
-                                <form action="{{ route('course.checkProject') }}" method="POST" class="w-full">
-                                    @csrf
+                        </div>
+                    @endif
 
-                                    <div class="p-2 text-white">
-                                        <h1 class="text-xl mb-2">- Question Number : {{ $course->project->id }}</h1>
-                                        <h1 class="text-2xl mb-4 font-semibold">{{ $course->project->question }}?</h1>
-                                        <input type="hidden" name="project_id" value="{{ $course->project->id }}">
-                                        <input type="text" name="answer"
-                                            class="w-full px-4 py-2 text-zinc-700 font-semibold rounded"
-                                            placeholder="Enter an answer">
-                                    </div>
-
-                                    <button
-                                        class="bg-zinc-700 text-white rounded-md px-4 py-2 mt-4 w-fit mx-auto block">Check
-                                        Answers</button>
-                                </form>
-                            </div>
-                        @endif
-                    @endCheckRole
                 </div>
             </div>
         </div>

@@ -82,18 +82,8 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        $isTrue = false;
 
-        // dd($course->lessons);
-
-        $lastIndex = count($course->lessons) - 1;
-        $lastLesson = $course->lessons[$lastIndex];
-
-        if ($lastLesson->isDone == true) {
-            $isTrue = true;
-        }
-
-        return view('coach.course', compact('course', 'isTrue'));
+        return view('coach.course', compact('course'));
     }
 
     /**

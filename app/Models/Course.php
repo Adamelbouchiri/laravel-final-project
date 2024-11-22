@@ -23,4 +23,8 @@ class Course extends Model
     public function project() {
         return $this->hasOne(FinalProject::class);
     }
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'user_courses');
+    }
 }

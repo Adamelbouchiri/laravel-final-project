@@ -26,8 +26,8 @@
                     <div class="">
                         <h2 class="text-xl font-semibold text-gray-800 mb-2">Video Content</h2>
                         <div class="aspect-video">
-                            <iframe class="w-full h-full rounded-lg" src="{{ asset('lessons-files/'.$lesson->content) }}"
-                                frameborder="0"
+                            <iframe class="w-full h-full rounded-lg"
+                                src="{{ asset('lessons-files/' . $lesson->content) }}" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
                         </div>
@@ -38,7 +38,7 @@
                 @if ($extension == 'jpg' || $extension == 'png' || $extension == 'peg')
                     <div>
                         <h2 class="text-xl font-semibold text-gray-800 mb-2">Image Content</h2>
-                        <img src="{{ asset('lessons-files/'.$lesson->content) }}" alt="Web Development Concept"
+                        <img src="{{ asset('lessons-files/' . $lesson->content) }}" alt="Web Development Concept"
                             class="w-[500px] mx-auto h-auto rounded-lg">
                     </div>
                 @endif
@@ -47,16 +47,19 @@
                 @if ($extension == 'pdf')
                     <div class="flex justify-center items-center py-6 flex-col">
                         <h2 class="text-xl font-semibold text-gray-800 mb-2">PDF Content</h2>
-                        <embed src="{{ asset('lessons-files/'.$lesson->content) }}" width="100%" height="500px" type="application/pdf">
+                        <embed src="{{ asset('lessons-files/' . $lesson->content) }}" width="100%" height="500px"
+                            type="application/pdf">
                     </div>
                 @endif
             </div>
-            <form action="{{ route('lesson.complete') }}" method="POST">
-                @csrf
-                <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
-                <button 
-                    class="complete-btn mt-2 transition duration-200 bg-[#94c4c6] hover:bg-[#59b4b7] text-white font-bold py-2 px-4 rounded">Complete</button>
-            </form>
+            @checkRole('user')
+                <form action="{{ route('lesson.complete') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
+                    <button
+                        class="complete-btn mt-2 transition duration-200 bg-[#94c4c6] hover:bg-[#59b4b7] text-white font-bold py-2 px-4 rounded">Complete</button>
+                </form>
+            @endCheckRole
         </div>
     </div>
 
