@@ -75,7 +75,7 @@ class userController extends Controller
         $coursesIds = $class->courses()->pluck('id')->toArray();
         $user->courses()->attach($coursesIds);
 
-        foreach($class->courses as $course) {
+        foreach ($class->courses as $course) {
             $lessonIds = $course->lessons->pluck('id')->toArray();
             $user->lessons()->attach($lessonIds);
         }
@@ -91,23 +91,21 @@ class userController extends Controller
     public function courseShow(Course $course)
     {
         $isTrue = false;
-        $lastLesson = null;
 
         $user = User::where('id', Auth::user()->id)->first();
 
         $lessons = $user->lessons()->where('course_id', $course->id)->get();
 
         $firstLesson = $lessons[0]->id;
+        $lastLesson = $lessons[count($lessons) - 1]->id;
 
-        $lesson = userLessons::where('user_id', Auth::user()->id)->where('lesson_id', count($lessons) -1)->first();
-        
-        if($lesson == true) {
-            if($lesson->isDone == true) {
-                $isTrue = true;
-            }
-        } 
+        $lesson = userLessons::where('user_id', Auth::user()->id)->where('lesson_id', $lastLesson)->first();
 
-        return view('user.userCourse', compact('course','lesson', 'lessons', 'firstLesson'));
+        if ($lesson == true) {
+            $isTrue = $lesson->isDone;
+        }
+
+        return view('user.userCourse', compact('course', 'isTrue', 'lessons', 'firstLesson'));
     }
 
     public function lessonShow(Lesson $lesson)

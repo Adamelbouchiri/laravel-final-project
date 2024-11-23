@@ -52,7 +52,7 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::post('/classe/join', [userController::class, 'joinClass'])->name('classe.join');
     Route::get('/My-classes', [userController::class, 'showClasses'])->name('userClasses.show');
     Route::get('/My-classes/{class}', [userController::class, 'show'])->name('myClass.show');
-    Route::get('/My-classes/class/course{course}', [userController::class, 'courseShow'])->name('myCourse.show');
+    Route::get('/My-classes/class/course/{course}', [userController::class, 'courseShow'])->name('myCourse.show');
     Route::get('/My-classes/class/course/lesson/{lesson}', [userController::class, 'lessonShow'])->name('myLesson.show');
 });
 

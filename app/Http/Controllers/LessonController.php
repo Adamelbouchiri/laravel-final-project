@@ -45,7 +45,6 @@ class LessonController extends Controller
             }
         }
 
-
         return back()->with('success', 'Lesson Completed Successfully');
     }
 

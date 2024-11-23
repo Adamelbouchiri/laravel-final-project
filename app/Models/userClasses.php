@@ -9,5 +9,6 @@ class userClasses extends Model
     protected $fillable = [
         'user_id',
         'classe_id',
+        'isPaid',
     ];
 }

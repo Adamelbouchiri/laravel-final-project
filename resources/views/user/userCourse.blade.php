@@ -45,8 +45,8 @@
                         </div>
                     @endforeach
 
-                    @if ($lesson->isDone == true)
-                        <div class="bg-[#59c5c9] rounded-md p-4 {{ $lesson->isDone ? '' : 'hidden' }}">
+                    @if ($isTrue)
+                        <div class="bg-[#59c5c9] rounded-md p-4 {{ $isTrue ? '' : 'hidden' }}">
                             <h1 class="text-white text-2xl tracking-wider font-bold text-center ">Final Project</h1>
                             <form action="{{ route('course.checkProject') }}" method="POST" class="w-full">
                                 @csrf
