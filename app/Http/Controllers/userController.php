@@ -62,7 +62,6 @@ class userController extends Controller
         $class = Classe::where('id', $request->class_id)->first();
         $user = User::where('id', $request->user_id)->first();
 
-        // $userClass = userClasses::where('user_id', $user->id)->where('classe_id', $class->id)->first();
         if ($class->seats === 0) {
             return back()->with('error', 'No seats available for this class');
         }
@@ -83,7 +82,14 @@ class userController extends Controller
             $user->lessons()->attach($lessonIds);
         }
 
-        return back()->with('success', 'User assigned successfully');
+        $userClass = userClasses::where('user_id', $user->id)->where('classe_id', $class->id)->first();
+
+        if($userClass && $class->isPremium == true) {
+            $userClass->isPaid = true;
+            $userClass->save();
+        }
+
+        return redirect()->route('classesCalendar.show');
     }
 
     public function show(Classe $class)
@@ -118,6 +124,14 @@ class userController extends Controller
     }
 
     public function payClass(Classe $class) {
+
+        $user = User::where('id', Auth::user()->id)->first();
+        $userClass = userClasses::where('user_id', $user->id)->where('classe_id', $class->id)->first();
+
+        if($userClass && $userClass->isPaid == true) {
+            return back()->with('error', 'You have already paid for this class');
+        }
+
         Stripe::setApiKey(config('stripe.sk'));
         
         $session = Session::create([
@@ -136,10 +150,18 @@ class userController extends Controller
 
             ],
             'mode'        => 'payment', 
-            'success_url' => route('dashboard'),  
+            'success_url' => route('success',$class->id),  
             'cancel_url'  => route('dashboard'), 
         ]);
 
         return redirect()->away($session->url);
+    }
+
+    public function success(Classe $class) {
+        return view('user.paymentSuccess', compact('class'));
+    }
+
+    public function failed() {
+        return view('user.paymentFailed');
     }
 }
