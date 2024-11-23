@@ -54,6 +54,7 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/My-classes/{class}', [userController::class, 'show'])->name('myClass.show');
     Route::get('/My-classes/class/course/{course}', [userController::class, 'courseShow'])->name('myCourse.show');
     Route::get('/My-classes/class/course/lesson/{lesson}', [userController::class, 'lessonShow'])->name('myLesson.show');
+    Route::get('/classe/pay/{class}', [userController::class, 'payClass'])->name('classe.pay');
 });
 
 

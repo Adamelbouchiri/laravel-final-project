@@ -6,9 +6,12 @@ use App\Models\Classe;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\User;
+use App\Models\userClasses;
 use App\Models\userLessons;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 
 class userController extends Controller
 {
@@ -59,13 +62,13 @@ class userController extends Controller
         $class = Classe::where('id', $request->class_id)->first();
         $user = User::where('id', $request->user_id)->first();
 
-
+        // $userClass = userClasses::where('user_id', $user->id)->where('classe_id', $class->id)->first();
         if ($class->seats === 0) {
             return back()->with('error', 'No seats available for this class');
         }
 
         if ($class->users()->where('user_id', $user->id)->exists()) {
-            return back()->with('error', 'User already assigned to this class');
+            return back()->with('error', "You're already assigned to this class");
         }
 
         $class->seats -= 1;
@@ -112,5 +115,31 @@ class userController extends Controller
     {
         $extension = substr($lesson->content, -3);
         return view('user.userLesson', compact('lesson', 'extension'));
+    }
+
+    public function payClass(Classe $class) {
+        Stripe::setApiKey(config('stripe.sk'));
+        
+        $session = Session::create([
+            'line_items'  => [
+                [
+                    'price_data' => [
+                        'currency'     => 'usd',
+                        'product_data' => [
+                            "name" => $class->name,
+                            "description"=> "pay the previewed amount to join the class"
+                        ],
+                        'unit_amount'  => 4500,
+                    ],
+                    'quantity'   => 1,
+                ],
+
+            ],
+            'mode'        => 'payment', 
+            'success_url' => route('dashboard'),  
+            'cancel_url'  => route('dashboard'), 
+        ]);
+
+        return redirect()->away($session->url);
     }
 }

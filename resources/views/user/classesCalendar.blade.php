@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Classes calendar</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src=" https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -19,6 +21,7 @@
         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
         <button id="submitEvent" type="submit">submit</button>
     </form>
+    <a id="pay" href="" class="hidden"></a>
     <h1 class="text-4xl font-semibold text-center text-[#94c4c6] py-4 tracking-wider">Available Classes</h1>
     <div class="flex justify-center items-center">
         <div id="calendar"
@@ -70,30 +73,31 @@
                     },
                 },
 
-                initialView: "timeGridWeek", // initial view  =   l view li kayban  mni kan7ol l  calendar
-                slotMinTime: "09:00:00", // min  time  appear in the calendar
-                slotMaxTime: "19:00:00", // max  time  appear in the calendar
-                nowIndicator: true, //  indicator  li kaybyen  l wa9t daba   fin  fl calendar
-                selectMirror: true, //  overlay   that show  the selected area  ( details  ... )
-                selectOverlap: false, //  nkhali ktar mn event f  nfs l wa9t = e.g: | 5 nas i reserviw nfs lblasa  f nfs l wa9t
-                weekends: true, // n7ayed  l weekends    ola nkhalihom 
+                initialView: "timeGridWeek",
+                slotMinTime: "09:00:00",
+                slotMaxTime: "19:00:00",
+                nowIndicator: true, 
+                selectMirror: true,
+                selectOverlap: false, 
+                weekends: true,
 
-                // events  hya  property dyal full calendar
                 events: classes,
 
                 eventColor: '#94c4c6',
 
                 eventClick: function(info) {
-                    // alert('Event: ' + info.event.id + " " + info.event.title);
-                    alert(
-                        `Title: ${info.event.title}\n` +
-                        `Seats: ${info.event.extendedProps.seats}\n` +
-                        `Passed: ${info.event.extendedProps.passed}`
-                    );
                     info.el.style.borderColor = 'white';
 
-                    class_id.value = info.event.id;
-                    submitEvent.click();
+                    payClassId = info.event.id;
+
+                    if(info.event.extendedProps.premium == true) {
+                        pay.href = `{{ route('classe.pay', ':payClassId') }}`.replace(':payClassId', payClassId);
+                        pay.click();
+                    }
+                    console.log('test');
+                    
+                    // class_id.value = info.event.id;
+                    // submitEvent.click();
                 },
 
                 eventContent: function(info) {
