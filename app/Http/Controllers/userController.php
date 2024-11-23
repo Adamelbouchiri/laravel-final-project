@@ -37,7 +37,7 @@ class userController extends Controller
                 "start" => $e->start,
                 "end" => $e->end,
                 "color" => "#94c4c6",
-                "passed" => false,
+                "premium" => $e->isPremium,
                 "id" => $e->id,
                 "title" => $e->name,
                 "seats" => $e->seats,

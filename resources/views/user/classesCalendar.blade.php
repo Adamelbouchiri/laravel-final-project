@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Classes calendar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src=" https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -33,6 +34,7 @@
             let response = await axios.get('/calendar/create');
             let classes = response.data.classes
 
+            console.log(classes);
 
             var myCalendar = document.getElementById('calendar');
 
@@ -92,6 +94,17 @@
 
                     class_id.value = info.event.id;
                     submitEvent.click();
+                },
+
+                eventContent: function(info) {
+                    return {
+                        html: `<div class='cursor-pointer'>
+                                    <strong class=''>${info.event.title}</strong>
+                                    <br/>
+                                    <p class='mt-2'>Available Seats: <span class='font-bold text-md'>${info.event.extendedProps.seats}</span></p>
+                                    <p class='mt-2 font-semibold'>${info.event.extendedProps.premium ? 'Premium <i class="fa-solid fa-money-bill"></i>' : ''}</p>
+                                </div>`
+                    };
                 }
             });
 
