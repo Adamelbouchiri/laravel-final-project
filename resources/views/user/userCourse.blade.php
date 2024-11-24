@@ -16,6 +16,7 @@
     @include('layouts.navigation')
     <div class="flex justify-end p-4 relative">
         <div class="bg-[#59c5c9] rounded-md p-6 flex w-[400px] flex-col fixed left-[80px] top-[80px]">
+            <a href="{{ route('classe.show',$course->classe->id) }}" class="text-white text-md font-bold">Return to class</a>
             <div class=" text-white  me-10">
                 <h1 class="text-3xl font-bold">{{ $course->name }}</h1>
                 <p class="text-lg mt-2 font-bold">Course ID: {{ $course->id }}</p>
@@ -55,6 +56,7 @@
                                     <h1 class="text-xl mb-2">- Question Number : {{ $course->project->id }}</h1>
                                     <h1 class="text-2xl mb-4 font-semibold">{{ $course->project->question }}?</h1>
                                     <input type="hidden" name="project_id" value="{{ $course->project->id }}">
+                                    <input type="hidden" name="course_id" value="{{ $course->id }}">
                                     <input type="text" name="answer"
                                         class="w-full px-4 py-2 text-zinc-700 font-semibold rounded"
                                         placeholder="Enter an answer">

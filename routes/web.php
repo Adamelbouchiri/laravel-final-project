@@ -57,6 +57,7 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/classe/pay/{class}', [userController::class, 'payClass'])->name('classe.pay');
     Route::get('/payment/success/{class}', [userController::class, 'success'])->name('success');
     Route::get('/payment/failed', [userController::class, 'failed'])->name('failed');
+    Route::get('/user/profile', [userController::class, 'userProfile'])->name('user.profile');
 });
 
 

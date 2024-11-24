@@ -15,7 +15,8 @@
 <body class="bg-white min-h-screen">
     @include('layouts.navigation')
     <div class="flex justify-end p-4 relative">
-        <div class="bg-[#59c5c9] rounded-md py-10 px-6 h-[260px] w-[450px] flex flex-col fixed left-[80px] top-[80px]">
+        <div class="bg-[#59c5c9] rounded-md py-4 px-6 h-[260px] w-[450px] flex flex-col fixed left-[80px] top-[80px]">
+            <a href="{{ route('classe.show',$course->classe->id) }}" class="text-white text-md font-bold">Return to class</a>
             <div class=" text-white  me-10">
                 <p class="text-lg mt-2 font-bold">Course name :</p>
                 <h1 class="text-3xl ps-4 font-bold">{{ $course->name }}</h1>

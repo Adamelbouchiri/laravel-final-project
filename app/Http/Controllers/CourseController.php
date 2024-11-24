@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\FinalProject;
+use App\Models\userCourses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -65,12 +67,16 @@ class CourseController extends Controller
     {
         request()->validate([
             'answer' => 'required',
+            'course_id' => 'required',
             'project_id' => 'required',
         ]);
 
         $project = FinalProject::where('id', $request->project_id)->first();
+        $userCourse = userCourses::where('user_id', Auth::user()->id)->where('course_id', $request->course_id)->first();
 
         if ($project->answer === $request->answer) {
+            $userCourse->completed = true;
+            $userCourse->save();
             return back()->with('success', 'Correct answer, You Completed The Course');
         } else {
             return back()->with('error', 'Incorrect answer, Try again');
@@ -82,7 +88,6 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-
         return view('coach.course', compact('course'));
     }
 

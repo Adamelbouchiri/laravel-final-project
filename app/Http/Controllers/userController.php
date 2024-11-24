@@ -84,7 +84,7 @@ class userController extends Controller
 
         $userClass = userClasses::where('user_id', $user->id)->where('classe_id', $class->id)->first();
 
-        if($userClass && $class->isPremium == true) {
+        if ($userClass && $class->isPremium == true) {
             $userClass->isPaid = true;
             $userClass->save();
         }
@@ -123,17 +123,18 @@ class userController extends Controller
         return view('user.userLesson', compact('lesson', 'extension'));
     }
 
-    public function payClass(Classe $class) {
+    public function payClass(Classe $class)
+    {
 
         $user = User::where('id', Auth::user()->id)->first();
         $userClass = userClasses::where('user_id', $user->id)->where('classe_id', $class->id)->first();
 
-        if($userClass && $userClass->isPaid == true) {
+        if ($userClass && $userClass->isPaid == true) {
             return back()->with('error', 'You have already paid for this class');
         }
 
         Stripe::setApiKey(config('stripe.sk'));
-        
+
         $session = Session::create([
             'line_items'  => [
                 [
@@ -141,7 +142,7 @@ class userController extends Controller
                         'currency'     => 'usd',
                         'product_data' => [
                             "name" => $class->name,
-                            "description"=> "pay the previewed amount to join the class"
+                            "description" => "pay the previewed amount to join the class"
                         ],
                         'unit_amount'  => 4500,
                     ],
@@ -149,19 +150,28 @@ class userController extends Controller
                 ],
 
             ],
-            'mode'        => 'payment', 
-            'success_url' => route('success',$class->id),  
-            'cancel_url'  => route('dashboard'), 
+            'mode'        => 'payment',
+            'success_url' => route('success', $class->id),
+            'cancel_url'  => route('dashboard'),
         ]);
 
         return redirect()->away($session->url);
     }
 
-    public function success(Classe $class) {
+    public function success(Classe $class)
+    {
         return view('user.paymentSuccess', compact('class'));
     }
 
-    public function failed() {
+    public function failed()
+    {
         return view('user.paymentFailed');
+    }
+
+    public function userProfile()
+    {
+        $user = User::where('id', Auth::user()->id)->first();
+        $courses = $user->courses;
+        return view('user.profile', compact('courses'));
     }
 }

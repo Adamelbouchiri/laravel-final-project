@@ -15,6 +15,24 @@
 </head>
 
 <body>
+    <style>
+        .up-down {
+            background-color: #94c4c6;
+            animation: upDown 3s infinite;
+        }
+
+        @keyframes upDown {
+
+            0%,
+            100% {
+                transform: translateY(5px);
+            }
+
+            50% {
+                transform: translateY(-40px);
+            }
+        }
+    </style>
     @include('layouts.navigation')
     <form action="{{ route('classe.join') }}" method="post" class="hidden">
         @csrf
@@ -23,8 +41,18 @@
         <button id="submitEvent" type="submit">submit</button>
     </form>
     <a id="pay" href="" class="hidden"></a>
+    <div class="flex mt-8 px-[50px] items-center h-[75vh] justify-center gap-32 mb-20">
+        <div class="w-[420px]">
+            <h1 class="text-3xl font-bold text-[#94c4c6] tracking-wider mb-4">Trainding and Toprated Classess</h1>
+            <p class="text-gray-400 tracking-wider mb-8">Learn new skills anytime with Top rated classes and coachs</p>
+            <a href="#classes"
+                class="px-6 py-3 bg-white text-[#94c4c6] font-semibold rounded-lg shadow-md hover:bg-[#94c4c6] hover:text-white hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#94c4c6] transition-all duration-300">Check
+                Available Classes</a>
+        </div>
+        <img class="up-down w-[500px] rounded-lg" src="{{ asset('storage/images/register.png') }}" alt="landing">
+    </div>
     <h1 class="text-4xl font-semibold text-center text-[#94c4c6] py-4 tracking-wider">Available Classes</h1>
-    <div class="flex justify-center items-center">
+    <div id="classes" class="flex justify-center items-center">
         <div id="calendar"
             class="my-8 bg-white p-4 text-zinc-800 w-3/4 text-center h-[90vh] border-2 border-zinc-600 rounded">
 
@@ -90,7 +118,8 @@
                     payClassId = info.event.id;
 
                     if (info.event.extendedProps.premium == true) {
-                        pay.href = `{{ route('classe.pay', ':payClassId') }}`.replace(':payClassId',payClassId);
+                        pay.href = `{{ route('classe.pay', ':payClassId') }}`.replace(':payClassId',
+                            payClassId);
                         pay.click();
                     }
 

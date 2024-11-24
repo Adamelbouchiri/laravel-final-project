@@ -11,7 +11,7 @@ class Course extends Model
         'classe_id',
     ];
 
-    public function class()
+    public function classe()
     {
         return $this->belongsTo(Classe::class);
     }

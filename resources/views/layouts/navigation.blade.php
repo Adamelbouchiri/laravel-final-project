@@ -54,7 +54,7 @@
                         </x-nav-link>
                     </div>
                 @endCheckRole
-                
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -77,18 +77,26 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                        @checkRole('user')
+                            <x-dropdown-link :href="route('user.profile')" class="flex justify-between">
+                                {{ __('Profile') }} <span class="text-gray-400 ms-1"><i
+                                        class="fa-solid fa-user"></i></span>
+                            </x-dropdown-link>
+                        @endCheckRole
+                        <x-dropdown-link :href="route('profile.edit')" class="flex justify-between">
+                            {{ __('Settings') }} <span class="text-gray-400 ms-1"><i
+                                    class="fa-solid fa-gear"></i></span>
                         </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
+                            <x-dropdown-link :href="route('logout')" class="flex justify-between"
                                 onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Log Out') }} <span class="text-gray-400 ms-1"><i
+                                        class="fa-solid fa-right-from-bracket"></i></span>
                             </x-dropdown-link>
                         </form>
                     </x-slot>
