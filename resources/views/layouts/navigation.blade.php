@@ -56,7 +56,7 @@
                 @endCheckRole
                 <div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('masterClasses')" :active="request()->routeIs('masterClasses')">
-                        {{ __('Mater Classes') }}
+                        {{ __('Master Classes') }}
                     </x-nav-link>
                 </div>
 

@@ -16,6 +16,26 @@
     @include('layouts.navigation')
     <div class="p-6">
         <h1 class="text-3xl font-bold text-center text-[#37abaf] mb-6">Classes</h1>
+        @if (Auth::user()->classes->isEmpty())
+            <div class="bg-gray-100 flex items-center justify-center">
+                <div class="bg-white shadow-xl rounded-lg p-8 text-center max-w-md">
+                    <div class="text-[#94c4c6] mb-4">
+                        <i class="fas fa-info-circle text-4xl"></i>
+                    </div>
+                    <p class="text-gray-800 text-lg font-semibold mb-2">No Class Enrollments Found</p>
+                    <p class="text-gray-600 text-sm">
+                        It seems you are not enrolled in any classes at the moment. Please check back later or contact
+                        support for assistance.
+                    </p>
+                    <div class="mt-6">
+                        <a href="{{ route('classesCalendar.show') }}"
+                            class="bg-[#94c4c6] text-white transition duration-300 px-4 py-2 rounded-lg shadow hover:bg-[#5eb7ba] focus:outline-none focus:ring focus:ring-blue-300">
+                            Join a class
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endif
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Class Card -->
             @foreach ($classes as $class)
