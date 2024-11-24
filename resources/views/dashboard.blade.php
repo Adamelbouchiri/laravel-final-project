@@ -154,11 +154,11 @@
                     entries.forEach((entry) => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add("show");
-                            observer.unobserve(entry.target); // Stop observing once visible
+                            observer.unobserve(entry.target);
                         }
                     });
                 }, {
-                    threshold: 0.2, // Trigger when 20% of the section is visible
+                    threshold: 0.2,
                 }
             );
 

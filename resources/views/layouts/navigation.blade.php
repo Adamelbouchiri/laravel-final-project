@@ -1,8 +1,8 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 sticky top-0 z-20">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-6">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex ">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
@@ -11,18 +11,18 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
                 @checkRole('admin')
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
                             {{ __('Users to approve') }}
                         </x-nav-link>
                     </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('admin.allUsers')" :active="request()->routeIs('admin.allUsers')">
                             {{ __('Users') }}
                         </x-nav-link>
@@ -30,12 +30,12 @@
                 @endCheckRole
 
                 @checkRole('coach')
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('coach.show')" :active="request()->routeIs('coach.show')">
                             {{ __('Create Class') }}
                         </x-nav-link>
                     </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('classes.show')" :active="request()->routeIs('classes.show')">
                             {{ __('Show Classes') }}
                         </x-nav-link>
@@ -43,17 +43,22 @@
                 @endCheckRole
 
                 @checkRole('user')
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('classesCalendar.show')" :active="request()->routeIs('classesCalendar.show')">
                             {{ __('Show Available Classes') }}
                         </x-nav-link>
                     </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('userClasses.show')" :active="request()->routeIs('userClasses.show')">
                             {{ __('Show My Classes') }}
                         </x-nav-link>
                     </div>
                 @endCheckRole
+                <div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('masterClasses')" :active="request()->routeIs('masterClasses')">
+                        {{ __('Mater Classes') }}
+                    </x-nav-link>
+                </div>
 
             </div>
 

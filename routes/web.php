@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\MasterClassController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,9 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/payment/success/{class}', [userController::class, 'success'])->name('success');
     Route::get('/payment/failed', [userController::class, 'failed'])->name('failed');
     Route::get('/user/profile', [userController::class, 'userProfile'])->name('user.profile');
+    Route::get('/Master-Classes', [MasterClassController::class, 'index'])->name('masterClasses');
+    Route::get('/Master-Classes/create', [MasterClassController::class, 'create'])->name('masterClasses.create');
+    Route::post('/Master-Classes/store', [MasterClassController::class, 'store'])->name('masterClasses.store');
 });
 
 

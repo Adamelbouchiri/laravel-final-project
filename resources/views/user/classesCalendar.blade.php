@@ -16,6 +16,17 @@
 
 <body>
     <style>
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .up-down {
             background-color: #94c4c6;
             animation: upDown 3s infinite;
@@ -43,7 +54,7 @@
     <a id="pay" href="" class="hidden"></a>
     <div class="flex mt-8 px-[50px] items-center h-[75vh] justify-center gap-32 mb-20">
         <div class="w-[420px]">
-            <h1 class="text-3xl font-bold text-[#94c4c6] tracking-wider mb-4">Trainding and Toprated Classess</h1>
+            <h1 class="text-3xl font-bold text-[#94c4c6] tracking-wider mb-4">Trainding and Toprated Classes</h1>
             <p class="text-gray-400 tracking-wider mb-8">Learn new skills anytime with Top rated classes and coachs</p>
             <a href="#classes"
                 class="px-6 py-3 bg-white text-[#94c4c6] font-semibold rounded-lg shadow-md hover:bg-[#94c4c6] hover:text-white hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#94c4c6] transition-all duration-300">Check
@@ -52,7 +63,7 @@
         <img class="up-down w-[500px] rounded-lg" src="{{ asset('storage/images/register.png') }}" alt="landing">
     </div>
     <h1 class="text-4xl font-semibold text-center text-[#94c4c6] py-4 tracking-wider">Available Classes</h1>
-    <div id="classes" class="flex justify-center items-center">
+    <div id="classes" class="fade-in flex justify-center items-center">
         <div id="calendar"
             class="my-8 bg-white p-4 text-zinc-800 w-3/4 text-center h-[90vh] border-2 border-zinc-600 rounded">
 
@@ -65,8 +76,6 @@
         document.addEventListener('DOMContentLoaded', async function() {
             let response = await axios.get('/calendar/create');
             let classes = response.data.classes
-
-            console.log(classes);
 
             var myCalendar = document.getElementById('calendar');
 
@@ -81,18 +90,18 @@
 
 
                 views: {
-                    listDay: { // Customize the name for listDay
+                    listDay: { 
                         buttonText: 'Day Classes',
 
                     },
-                    listWeek: { // Customize the name for listWeek
+                    listWeek: { 
                         buttonText: 'Week Classes'
                     },
-                    listMonth: { // Customize the name for listMonth
+                    listMonth: { 
                         buttonText: 'Month Classes'
                     },
                     timeGridWeek: {
-                        buttonText: 'Week', // Customize the button text
+                        buttonText: 'Week', 
                     },
                     timeGridDay: {
                         buttonText: "Day",
@@ -142,6 +151,23 @@
             });
 
             calendar.render();
+
+            const sections = document.querySelectorAll(".fade-in");
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("show");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.2,
+                }
+            );
+
+            sections.forEach((section) => observer.observe(section));
         })
     </script>
 </body>
