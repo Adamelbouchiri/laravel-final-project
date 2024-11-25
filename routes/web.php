@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/Master-Classes/create', [MasterClassController::class, 'create'])->name('masterClasses.create');
+    Route::post('/Master-Classes/store', [MasterClassController::class, 'store'])->name('masterClasses.store');
     Route::get('/Master-Classes', [MasterClassController::class, 'index'])->name('masterClasses');
 });
 
@@ -60,8 +62,7 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/payment/success/{class}', [userController::class, 'success'])->name('success');
     Route::get('/payment/failed', [userController::class, 'failed'])->name('failed');
     Route::get('/user/profile', [userController::class, 'userProfile'])->name('user.profile');
-    Route::get('/Master-Classes/create', [MasterClassController::class, 'create'])->name('masterClasses.create');
-    Route::post('/Master-Classes/store', [MasterClassController::class, 'store'])->name('masterClasses.store');
+    
 });
 
 

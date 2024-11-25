@@ -46,7 +46,7 @@
                             class="font-medium text-md">{{ $class->seats }}</span></p>
                     @if ($class->isPremium == true)
                         <p class="text-gray-600 text-lg pb-4 font-bold">Premium: <span
-                                class="font-medium text-lg text-[#59c5c9]">yes <i class="fa-solid fa-coins"></i></span>
+                                class="font-medium text-lg text-[#59c5c9]">yes <i class="fa-solid fa-money-bill"></i></span>
                         </p>
                     @else
                         <p class="text-gray-600 text-lg pb-4 font-bold">Premium: <span
