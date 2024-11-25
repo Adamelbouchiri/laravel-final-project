@@ -16,6 +16,30 @@
 
 <body>
     <style>
+
+        .fc-header-toolbar .fc-button {
+            background-color: #94c4c6;
+            color: white;
+            border-radius: 5px;
+            padding: 8px 15px;
+            margin: 0 5px;
+            font-weight: bold;
+            transition: .3s
+        }
+
+        .fc-header-toolbar .fc-button:hover {
+            background-color: #6dc1c4;
+        }
+
+        .fc-header-toolbar .fc-button.fc-state-active {
+            background-color: #94c4c6;
+            color: white;
+        }
+
+        .fc-daygrid-day.fc-day-today {
+            background-color: #94c4c6;
+        }
+
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -90,18 +114,18 @@
 
 
                 views: {
-                    listDay: { 
+                    listDay: {
                         buttonText: 'Day Classes',
 
                     },
-                    listWeek: { 
+                    listWeek: {
                         buttonText: 'Week Classes'
                     },
-                    listMonth: { 
+                    listMonth: {
                         buttonText: 'Month Classes'
                     },
                     timeGridWeek: {
-                        buttonText: 'Week', 
+                        buttonText: 'Week',
                     },
                     timeGridDay: {
                         buttonText: "Day",
